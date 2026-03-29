@@ -7,6 +7,7 @@ Members:
 
 Unique Feature:
 - Displays Estimated Arrival Time based on current time and trip duration
+- Added Feature 2: Input Validation Improvement for starting and destination locations
 """
 
 import requests
@@ -51,6 +52,17 @@ def geocoding(location, key):
 
     return json_status, lat, lng, new_loc
 
+    # Added Feature 2: Input Validation Improvement
+def get_valid_location(prompt):
+    while True:
+        loc = input(prompt)
+        if loc.lower() in ["quit", "q"]:
+            return None  
+        if not loc.replace(" ", "").isalpha():
+            print("Invalid input. Please enter a valid location (letters only).")
+        else:
+            return loc
+
 while True:
     print("\n+++++++++++++++++++++++++++++++++++++++++++++")
     print("Vehicle profiles available on Graphhopper:")
@@ -61,22 +73,21 @@ while True:
     profile = ["car", "bike", "foot"]
     vehicle = input("Enter a vehicle profile from the list above: ")
 
-    if vehicle == "quit" or vehicle == "q":
+    if vehicle.lower() in ["quit", "q"]:
         break
     elif vehicle not in profile:
         vehicle = "car"
         print("No valid vehicle profile was entered. Using the car profile.")
 
-    loc1 = input("Starting Location: ")
-    if loc1 == "quit" or loc1 == "q":
+    # Use Input Validation Feature 
+    loc1 = get_valid_location("Starting Location: ")
+    if loc1 is None:
         break
-
     orig = geocoding(loc1, key)
 
-    loc2 = input("Destination: ")
-    if loc2 == "quit" or loc2 == "q":
+    loc2 = get_valid_location("Destination: ")
+    if loc2 is None:
         break
-
     dest = geocoding(loc2, key)
 
     print("=================================================")
