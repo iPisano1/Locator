@@ -113,7 +113,7 @@ while True:
             now = datetime.now()
             travel_time = timedelta(hours=hr, minutes=mins, seconds=sec)
 
-            # Added Feature 1 (CARLOS)
+            # Added Feature 1: Estimated Arrival Time
             arrival_time = now + travel_time
             print("Estimated Arrival Time:", arrival_time.strftime("%H:%M:%S"))
 
