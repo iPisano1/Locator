@@ -128,6 +128,10 @@ while True:
             arrival_time = now + travel_time
             print("Estimated Arrival Time:", arrival_time.strftime("%H:%M:%S"))
 
+             # Added Feature 3: Display Number of Steps
+            steps = len(paths_data["paths"][0]["instructions"])
+            print("Total Steps:", steps)
+
             print("=================================================")
 
             for each in range(len(paths_data["paths"][0]["instructions"])):
